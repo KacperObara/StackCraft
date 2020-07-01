@@ -11,6 +11,7 @@ public class AutoMovement : MonoBehaviour
     void Update()
     {
         //transform.position += transform.forward * speed * Time.deltaTime;
-        rb.velocity += transform.forward * speed * Time.deltaTime;
+        //rb.velocity += transform.forward * speed * Time.deltaTime;
+        rb.MovePosition(transform.position + (transform.forward * speed * Time.deltaTime));
     }
 }
