@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class StackView : MonoBehaviour
 {
-    private List<Pickable> stackItems = new List<Pickable>();
+    private List<Pickable> _stackItems = new List<Pickable>();
+    public List<Pickable> StackItems
+    {
+        get
+        {
+            return _stackItems;
+        }
+    }
 
 #pragma warning disable CS0649
     [SerializeField]
@@ -18,7 +25,7 @@ public class StackView : MonoBehaviour
 
     public void AddToStack(Pickable pickable)
     {
-        stackItems.Add(pickable);
+        StackItems.Add(pickable);
 
         pickable.transform.SetParent(stack, true);
         pickable.GetComponent<BoxCollider>().enabled = false;

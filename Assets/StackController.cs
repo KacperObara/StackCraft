@@ -21,4 +21,14 @@ public class StackController : MonoBehaviour
         stackModel.AddItem(pickable.Item);
         stackView.AddToStack(pickable);
     }
+
+    public List<Item> GetItems()
+    {
+        return stackModel.Items;
+    }
+
+    //public List<Pickable> GetViewItems()
+    //{
+    //    return stackView.StackItems;
+    //}
 }

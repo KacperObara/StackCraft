@@ -8,9 +8,13 @@ public class FinishRunState : GameState
     public Transform Player;
 
     [SerializeField]
+    private GameObject UI;
+
+    [SerializeField]
     private float moveSpeed;
 
     private bool standingOnPoint = false;
+
 
     public override string GetName()
     {
@@ -19,21 +23,21 @@ public class FinishRunState : GameState
 
     public override void OnEnter()
     {
-        //StateManager.PopState();
+        UI.SetActive(true);
         StartCoroutine(MoveToWaypoint());
     }
 
     public override void OnExit()
     {
-
+        UI.SetActive(false);
     }
 
     public override void OnUpdate()
     {
         if (standingOnPoint == true)
         {
-            Debug.Log("KONIEC");
-            StateManager.PopState();
+            GetComponent<CameraStackInspection>().Play();
+            standingOnPoint = false;
         }
     }
 
@@ -46,5 +50,10 @@ public class FinishRunState : GameState
         }
         Player.position = FinishWaypoint.position;
         standingOnPoint = true;
+    }
+
+    private void StartCounting()
+    {
+
     }
 }
