@@ -4,24 +4,19 @@ using UnityEngine;
 
 public class MouseInput : MonoBehaviour
 {
-    public Rigidbody rb;
+    private Rigidbody rb;
 
-    private void Update()
+    private void Awake()
     {
-        //transform.position = new Vector3(transform.position.x + Input.GetAxis("Mouse X"),
-        //                                 transform.position.y,
-        //                                 transform.position.z);
-        rb.MovePosition(new Vector3(transform.position.x + Input.GetAxis("Mouse X"),
-                                    transform.position.y,
-                                    transform.position.z));
+        rb = GetComponent<Rigidbody>();
+    }
 
-        //if (Input.GetAxis("Mouse X") < 0)
-        //{
+    private void FixedUpdate()
+    {
+        float xPos = Mathf.Clamp(rb.position.x + Input.GetAxis("Mouse X"), -4.4f, 4.5f);
 
-        //}
-        //else if (Input.GetAxis("Mouse X") > 0)
-        //{
-
-        //}
+        rb.MovePosition(new Vector3(xPos, 
+                                    rb.position.y, 
+                                    rb.position.z));
     }
 }

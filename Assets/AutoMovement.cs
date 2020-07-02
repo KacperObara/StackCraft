@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class AutoMovement : MonoBehaviour
 {
-    public Rigidbody rb;
-
     public float speed = 5f;
 
-    void Update()
+    private Rigidbody rb;
+
+    private void Awake()
     {
-        //transform.position += transform.forward * speed * Time.deltaTime;
-        //rb.velocity += transform.forward * speed * Time.deltaTime;
-        rb.MovePosition(transform.position + (transform.forward * speed * Time.deltaTime));
+        rb = GetComponent<Rigidbody>();
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + (transform.forward * speed * Time.deltaTime));
     }
 }
