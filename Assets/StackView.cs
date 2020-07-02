@@ -6,10 +6,12 @@ public class StackView : MonoBehaviour
 {
     private List<Pickable> stackItems = new List<Pickable>();
 
+#pragma warning disable CS0649
     [SerializeField]
     private Transform stack;
     [SerializeField]
     private Transform stackHead;
+#pragma warning restore CS0649
 
     [SerializeField]
     private float pickingSpeed = 0.2f;

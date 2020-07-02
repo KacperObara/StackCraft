@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class StackController : MonoBehaviour
 {
+#pragma warning disable CS0649
     [SerializeField]
     private StackView stackView;
+#pragma warning restore CS0649
 
     private StackModel stackModel;
 
@@ -14,12 +16,9 @@ public class StackController : MonoBehaviour
         stackModel = new StackModel();
     }
 
-    public void OnTriggerEnter(Collider other)
+    public void AddToStack(Pickable pickable)
     {
-       if (other.GetComponent<Pickable>())
-       {
-            stackModel.AddItem(other.GetComponent<Pickable>().Item);
-            stackView.AddToStack(other.GetComponent<Pickable>());
-       }
+        stackModel.AddItem(pickable.Item);
+        stackView.AddToStack(pickable);
     }
 }
