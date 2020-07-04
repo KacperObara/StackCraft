@@ -59,25 +59,21 @@ public class StackCounter : MonoBehaviour
         }
     }
 
-    // TODO: change it for the love of God
+    // TODO: change it for the love of God.
     private void CheckRecord(Resource resource)
     {
         if (record.Key == resource)
         {
             record = new KeyValuePair<Resource, int>(record.Key, record.Value + 1);
-            Debug.Log("Punkt dla: " + record.Key + " = " + record.Value);
-        }
-        else
-        {
+
             if (record.Value > recordCount.Value)
             {
                 recordCount = new KeyValuePair<Resource, int>(record.Key, record.Value);
-                Debug.Log("Nowy rekord: " + recordCount.Key + " " + recordCount.Value);
             }
-
-
+        }
+        else
+        {
             record = new KeyValuePair<Resource, int>(resource, 1);
-            Debug.Log("Zmiana na nową liczbę: " + record.Key + " " + record.Value);
         }
     }
 
