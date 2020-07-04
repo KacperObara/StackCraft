@@ -51,9 +51,12 @@ public class StackCounter : MonoBehaviour
             yield return new WaitForSeconds(0.07f);
         }
 
-        ComboPanel.SetActive(true);
-        ComboPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = record.Key.GetName;
-        ComboPanel.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = record.Value.ToString();
+        if (resources.Count > 0)
+        {
+            ComboPanel.SetActive(true);
+            ComboPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = recordCount.Key.GetName;
+            ComboPanel.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = recordCount.Value.ToString();
+        }
     }
 
     // TODO: change it for the love of God
@@ -62,15 +65,19 @@ public class StackCounter : MonoBehaviour
         if (record.Key == resource)
         {
             record = new KeyValuePair<Resource, int>(record.Key, record.Value + 1);
+            Debug.Log("Punkt dla: " + record.Key + " = " + record.Value);
         }
         else
         {
             if (record.Value > recordCount.Value)
             {
                 recordCount = new KeyValuePair<Resource, int>(record.Key, record.Value);
+                Debug.Log("Nowy rekord: " + recordCount.Key + " " + recordCount.Value);
             }
 
+
             record = new KeyValuePair<Resource, int>(resource, 1);
+            Debug.Log("Zmiana na nową liczbę: " + record.Key + " " + record.Value);
         }
     }
 
@@ -78,7 +85,6 @@ public class StackCounter : MonoBehaviour
     {
         foreach (Resource resource in resources)
         {
-            Debug.Log(name + "  " + resource.GetName);
             if (resource.GetName == name)
             {
                 return resource;
