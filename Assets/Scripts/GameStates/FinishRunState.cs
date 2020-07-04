@@ -11,6 +11,9 @@ public class FinishRunState : GameState
     private GameObject UI;
 
     [SerializeField]
+    private StackCounter stackCounter;
+
+    [SerializeField]
     private float moveSpeed;
 
     private bool standingOnPoint = false;
@@ -37,6 +40,7 @@ public class FinishRunState : GameState
         if (standingOnPoint == true)
         {
             GetComponent<CameraStackInspection>().Play();
+            stackCounter.CountItems();
             standingOnPoint = false;
         }
     }
