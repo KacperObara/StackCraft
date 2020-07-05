@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 6161068615513702788}
   - component: {fileID: 5825697495410600171}
   - component: {fileID: 5825697495410600168}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Mushroom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &6161068615516128100
 Transform:
@@ -27,7 +27,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6161068615515905860}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 0, z: 4}
   m_LocalScale: {x: 1.2748, y: 1.2748, z: 1.2748}
   m_Children: []
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46bb878757b1b7e4996b4c9787d2f5ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StackPrefab: {fileID: 0}
+  StackPrefab: {fileID: 6161068615515905860}
   Item: {fileID: 11400000, guid: 8aaf5810d86e9214fa9dcac5de832dbb, type: 2}
   Height: 0.316
 --- !u!65 &5825697495410600168
@@ -105,8 +105,8 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6161068615515905860}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.32306075, y: 0.24608955, z: 0.18833989}
-  m_Center: {x: 0.003924489, y: 0.12304479, z: 0.0068399757}
+  m_Size: {x: 0.45, y: 0.44694534, z: 0.18833989}
+  m_Center: {x: 0.0039244946, y: 0.22347267, z: 0.00683997}

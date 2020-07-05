@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
 {
+#pragma warning disable CS0649
     [SerializeField]
     private StackController stackController;
 
@@ -15,6 +16,7 @@ public class PlayerInteraction : MonoBehaviour
     private AudioClip pickUpSound;
     [SerializeField]
     private AudioClip finishSound;
+#pragma warning restore CS0649
 
     private AudioSource audioSource;
 

@@ -9,12 +9,14 @@ using UnityEngine;
 /// </summary>
 public class CameraStackInspection : MonoBehaviour
 {
+#pragma warning disable CS0649
     [SerializeField]
     private Camera cam;
     [SerializeField]
     private Transform stackTop;
     [SerializeField]
     private Transform stackBottom;
+#pragma warning restore CS0649
 
     [SerializeField]
     private float speed = 0.1f;

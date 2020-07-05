@@ -7,6 +7,7 @@ using UnityEngine;
 //TODO: Very bad naming, class does too much, records should be in it's own class. CheckRecord method is awful, Resource class can be done better
 public class StackCounter : MonoBehaviour
 {
+#pragma warning disable CS0649
     [SerializeField]
     private StackController stackController;
 
@@ -14,7 +15,10 @@ public class StackCounter : MonoBehaviour
     private GameObject counterPrefab;
 
     [SerializeField]
-    private GameObject ComboPanel;
+    private GameObject ComboPanel;    
+    [SerializeField]
+    private GameObject ProceedButton;
+#pragma warning restore CS0649
 
     private List<Item> items;
 
@@ -33,6 +37,8 @@ public class StackCounter : MonoBehaviour
     // Animates resource counting at the end of the level
     private IEnumerator Count()
     {
+        resources.Clear();
+
         foreach (var item in items)
         {
             Resource resource;
@@ -57,6 +63,8 @@ public class StackCounter : MonoBehaviour
             ComboPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = recordCount.Key.GetName;
             ComboPanel.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = recordCount.Value.ToString();
         }
+
+        ProceedButton.SetActive(true);
     }
 
     // TODO: change it for the love of God.

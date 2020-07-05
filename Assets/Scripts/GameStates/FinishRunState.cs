@@ -7,14 +7,25 @@ public class FinishRunState : GameState
     public Transform FinishWaypoint;
     public Transform Player;
 
+#pragma warning disable CS0649
     [SerializeField]
     private GameObject UI;
 
     [SerializeField]
     private StackCounter stackCounter;
 
+    [SerializeField] 
+    private GameObject player;
+
+    [SerializeField] 
+    private GameObject cam;
+
     [SerializeField]
-    private float moveSpeed;
+    private GameObject mapsParent;
+#pragma warning restore CS0649
+
+    [SerializeField]
+    private float moveSpeed = 0;
 
     private bool standingOnPoint = false;
 
@@ -33,6 +44,10 @@ public class FinishRunState : GameState
     public override void OnExit()
     {
         UI.SetActive(false);
+        player.SetActive(false);
+        cam.SetActive(true);
+
+        mapsParent.SetActive(false);
     }
 
     public override void OnUpdate()
@@ -54,10 +69,5 @@ public class FinishRunState : GameState
         }
         Player.position = FinishWaypoint.position;
         standingOnPoint = true;
-    }
-
-    private void StartCounting()
-    {
-
     }
 }

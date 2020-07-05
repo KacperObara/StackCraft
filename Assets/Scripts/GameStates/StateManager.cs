@@ -5,7 +5,9 @@ using UnityEngine;
 public class StateManager : MonoBehaviour
 {
     [SerializeField]
-    private List<GameState> statesStack = new List<GameState>();    
+    private List<GameState> statesStack = new List<GameState>();
+
+    public List<GameState> statesStackTemplate;    
 
     public GameState TopState
     {
@@ -27,6 +29,8 @@ public class StateManager : MonoBehaviour
             state.StateManager = this;
         }
 
+        statesStackTemplate = new List<GameState>(statesStack);
+
         TopState.OnEnter();
     }
 
@@ -41,6 +45,11 @@ public class StateManager : MonoBehaviour
         statesStack.Remove(TopState);
 
         TopState.OnEnter();
+    }
+
+    public void ResetStates()
+    {
+        statesStack = new List<GameState>(statesStackTemplate);
     }
 
     private void Update()
