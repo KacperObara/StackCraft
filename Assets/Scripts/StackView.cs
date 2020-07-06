@@ -17,11 +17,24 @@ public class StackView : MonoBehaviour
     [SerializeField]
     private Transform stack;
     [SerializeField]
-    private Transform stackHead;
+    private Transform stackHead;    
+    [SerializeField]
+    private Transform stackBottom;
 #pragma warning restore CS0649
 
     [SerializeField]
     private float pickingSpeed = 0.2f;
+
+    public void ResetStack()
+    {
+        for (int i = 0; i < StackItems.Count; i++)
+        {
+            Destroy(StackItems[i].gameObject);
+        }
+        StackItems.Clear();
+
+        stackHead.position = stackBottom.position;
+    }
 
     public void AddToStack(Pickable pickable)
     {

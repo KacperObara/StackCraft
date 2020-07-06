@@ -49,7 +49,9 @@ public class StateManager : MonoBehaviour
 
     public void ResetStates()
     {
+        TopState.OnExit();
         statesStack = new List<GameState>(statesStackTemplate);
+        TopState.OnEnter();
     }
 
     private void Update()

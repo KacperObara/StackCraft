@@ -34,10 +34,22 @@ public class StackCounter : MonoBehaviour
         StartCoroutine(Count());
     }
 
+    private void Clear()
+    {
+        for (int i = 0; i < resources.Count; i++)
+        {
+            Destroy(resources[i].GetGameObject);
+        }
+        resources.Clear();
+
+        record = default(KeyValuePair<Resource, int>);
+        recordCount = default(KeyValuePair<Resource, int>);
+    }
+
     // Animates resource counting at the end of the level
     private IEnumerator Count()
     {
-        resources.Clear();
+        Clear();
 
         foreach (var item in items)
         {
@@ -105,6 +117,8 @@ public class StackCounter : MonoBehaviour
 
         private int count;
         public string GetName => nameText.text;
+
+        public GameObject GetGameObject => nameText.transform.parent.gameObject;
 
         public Resource(GameObject counter, string text)
         {

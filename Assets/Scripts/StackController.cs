@@ -16,6 +16,12 @@ public class StackController : MonoBehaviour
         stackModel = new StackModel();
     }
 
+    public void ResetStack()
+    {
+        stackModel = new StackModel();
+        stackView.ResetStack();
+    }
+
     public void AddToStack(Pickable pickable)
     {
         stackModel.AddItem(pickable.Item);

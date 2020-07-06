@@ -12,7 +12,11 @@ public class RunState : GameState
     [SerializeField] 
     private GameObject player;
     [SerializeField] 
-    private GameObject cam;
+    private GameObject cam;   
+    [SerializeField] 
+    private GameObject camDefaultPosition;
+    [SerializeField]
+    private GameObject playerCam;
     [SerializeField]
     private GameObject mapsParent;
 #pragma warning restore CS0649
@@ -26,10 +30,12 @@ public class RunState : GameState
     {
         autoMovement.enabled = true;
         mouseInput.enabled = true;
-        //player.GetComponent<Rigidbody>().useGravity = true;
+
         player.SetActive(true);
         player.transform.position = new Vector3(0, 1, 0);
         cam.SetActive(false);
+        playerCam.transform.position = camDefaultPosition.transform.position;
+        playerCam.transform.rotation = camDefaultPosition.transform.rotation;
 
         mapsParent.SetActive(true);
     }

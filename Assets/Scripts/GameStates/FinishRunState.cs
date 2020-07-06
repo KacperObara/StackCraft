@@ -22,6 +22,9 @@ public class FinishRunState : GameState
 
     [SerializeField]
     private GameObject mapsParent;
+
+    [SerializeField]
+    private StackController stackController;
 #pragma warning restore CS0649
 
     [SerializeField]
@@ -48,6 +51,7 @@ public class FinishRunState : GameState
         cam.SetActive(true);
 
         mapsParent.SetActive(false);
+        stackController.ResetStack();
     }
 
     public override void OnUpdate()
