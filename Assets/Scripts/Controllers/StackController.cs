@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class StackController : MonoBehaviour
@@ -32,9 +31,4 @@ public class StackController : MonoBehaviour
     {
         return stackModel.Items;
     }
-
-    //public List<Pickable> GetViewItems()
-    //{
-    //    return stackView.StackItems;
-    //}
 }

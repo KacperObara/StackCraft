@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RunState : GameState
 {
@@ -11,14 +9,10 @@ public class RunState : GameState
     private MouseInput mouseInput;
     [SerializeField] 
     private GameObject player;
-    [SerializeField] 
-    private GameObject cam;   
-    [SerializeField] 
-    private GameObject camDefaultPosition;
-    [SerializeField]
-    private GameObject playerCam;
     [SerializeField]
     private GameObject mapsParent;
+    [SerializeField]
+    private GameObject cam;
 #pragma warning restore CS0649
 
     public override string GetName()
@@ -33,9 +27,8 @@ public class RunState : GameState
 
         player.SetActive(true);
         player.transform.position = new Vector3(0, 1, 0);
-        cam.SetActive(false);
-        playerCam.transform.position = camDefaultPosition.transform.position;
-        playerCam.transform.rotation = camDefaultPosition.transform.rotation;
+
+        cam.transform.position = player.transform.position;
 
         mapsParent.SetActive(true);
     }

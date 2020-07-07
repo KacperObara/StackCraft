@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-//TODO: Very bad naming, class does too much, records should be in it's own class. CheckRecord method is awful, Resource class can be done better
+
 public class StackCounter : MonoBehaviour
 {
 #pragma warning disable CS0649
@@ -22,35 +21,39 @@ public class StackCounter : MonoBehaviour
 
     private List<Item> items;
 
-    private KeyValuePair<Resource, int> record;
-    private KeyValuePair<Resource, int> recordCount;
+    private ResourceCombo currentCombo;
+    private ResourceCombo maxCombo;
 
     private List<Resource> resources = new List<Resource>();
 
     public void CountItems()
     {
+        ComboPanel.SetActive(false);
+        ProceedButton.SetActive(false);
+
         items = stackController.GetItems();
 
         StartCoroutine(Count());
     }
 
-    private void Clear()
+    public void Clear()
     {
+        ComboPanel.SetActive(false);
+        ProceedButton.SetActive(false);
+
         for (int i = 0; i < resources.Count; i++)
         {
             Destroy(resources[i].GetGameObject);
         }
         resources.Clear();
 
-        record = default(KeyValuePair<Resource, int>);
-        recordCount = default(KeyValuePair<Resource, int>);
+        currentCombo = new ResourceCombo();
+        maxCombo = new ResourceCombo();
     }
 
     // Animates resource counting at the end of the level
     private IEnumerator Count()
     {
-        Clear();
-
         foreach (var item in items)
         {
             Resource resource;
@@ -64,7 +67,7 @@ public class StackCounter : MonoBehaviour
                 resources.Add(resource);
             }
             resource.IncrementCounter();
-            CheckRecord(resource);
+            CheckNewMaxCombo(resource);
 
             yield return new WaitForSeconds(0.07f);
         }
@@ -72,28 +75,31 @@ public class StackCounter : MonoBehaviour
         if (resources.Count > 0)
         {
             ComboPanel.SetActive(true);
-            ComboPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = recordCount.Key.GetName;
-            ComboPanel.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = recordCount.Value.ToString();
+            ComboPanel.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = maxCombo.resource.GetName;
+            ComboPanel.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = maxCombo.comboCount.ToString();
         }
 
         ProceedButton.SetActive(true);
     }
 
-    // TODO: change it for the love of God.
-    private void CheckRecord(Resource resource)
+    private void CheckNewMaxCombo(Resource resource)
     {
-        if (record.Key == resource)
+        if (currentCombo.resource == resource)
         {
-            record = new KeyValuePair<Resource, int>(record.Key, record.Value + 1);
-
-            if (record.Value > recordCount.Value)
-            {
-                recordCount = new KeyValuePair<Resource, int>(record.Key, record.Value);
-            }
+            currentCombo.comboCount++;
         }
         else
         {
-            record = new KeyValuePair<Resource, int>(resource, 1);
+            currentCombo = new ResourceCombo()
+            {
+                resource = resource,
+                comboCount = 1
+            };
+        }
+
+        if (currentCombo.comboCount > maxCombo.comboCount)
+        {
+            maxCombo = currentCombo;
         }
     }
 
@@ -134,5 +140,11 @@ public class StackCounter : MonoBehaviour
 
             countText.text = count.ToString();
         }
+    }
+
+    private struct ResourceCombo
+    {
+        public Resource resource;
+        public int comboCount;
     }
 }

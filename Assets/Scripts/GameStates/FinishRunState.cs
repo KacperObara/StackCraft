@@ -1,12 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FinishRunState : GameState
 {
     public Transform Player;
-
-    private Vector3 finishWaypoint;
 
 #pragma warning disable CS0649
     [SerializeField]
@@ -18,21 +14,20 @@ public class FinishRunState : GameState
     [SerializeField] 
     private GameObject player;
 
-    [SerializeField] 
-    private GameObject cam;
-
     [SerializeField]
     private GameObject mapsParent;
 
     [SerializeField]
     private StackController stackController;
-#pragma warning restore CS0649
+
+    [SerializeField]
+    private MovePlayerToWaypoint playerAnimation;
+    [SerializeField]
+    private MoveCameraToWaypoints cameraAnimation;
 
     [SerializeField]
     private float moveSpeed = 0;
-
-    private bool standingOnPoint = false;
-
+#pragma warning restore CS0649
 
     public override string GetName()
     {
@@ -41,39 +36,38 @@ public class FinishRunState : GameState
 
     public override void OnEnter()
     {
-        finishWaypoint = new Vector3(0, player.transform.position.y, player.transform.position.z + 30f);
         UI.SetActive(true);
-        StartCoroutine(MoveToWaypoint());
+
+        Vector3 endWaypoint = player.transform.position;
+        endWaypoint.x = 0;
+        endWaypoint.z += 20;
+
+        playerAnimation.Play(endWaypoint, this);
     }
 
     public override void OnExit()
     {
         UI.SetActive(false);
         player.SetActive(false);
-        cam.SetActive(true);
 
         mapsParent.SetActive(false);
         stackController.ResetStack();
+
+        stackCounter.Clear();
     }
 
     public override void OnUpdate()
     {
-        if (standingOnPoint == true)
-        {
-            GetComponent<CameraStackInspection>().Play();
-            stackCounter.CountItems();
-            standingOnPoint = false;
-        }
+
     }
 
-    private IEnumerator MoveToWaypoint()
+    // TODO: Make better use of the observer pattern 
+    public void NotifyPlayerAnimationDone()
     {
-        while (Vector3.Distance(Player.position, finishWaypoint) > 2f)
-        {
-            Player.position = Vector3.MoveTowards(Player.position, finishWaypoint, moveSpeed);
-            yield return null;
-        }
-        Player.position = finishWaypoint;
-        standingOnPoint = true;
+        cameraAnimation.Play(this);
+    }
+    public void NotifyCameraAnimationDone()
+    {
+        stackCounter.CountItems();
     }
 }

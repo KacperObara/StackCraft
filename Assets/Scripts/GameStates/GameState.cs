@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 // This can't be an interface, because the inspector doesn't serialize interfaces
 public abstract class GameState : MonoBehaviour
