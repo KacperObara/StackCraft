@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class FinishRunState : GameState
 {
-    public Transform FinishWaypoint;
     public Transform Player;
+
+    private Vector3 finishWaypoint;
 
 #pragma warning disable CS0649
     [SerializeField]
@@ -40,6 +41,7 @@ public class FinishRunState : GameState
 
     public override void OnEnter()
     {
+        finishWaypoint = new Vector3(0, player.transform.position.y, player.transform.position.z + 30f);
         UI.SetActive(true);
         StartCoroutine(MoveToWaypoint());
     }
@@ -66,12 +68,12 @@ public class FinishRunState : GameState
 
     private IEnumerator MoveToWaypoint()
     {
-        while (Vector3.Distance(Player.position, FinishWaypoint.position) > 2f)
+        while (Vector3.Distance(Player.position, finishWaypoint) > 2f)
         {
-            Player.position = Vector3.MoveTowards(Player.position, FinishWaypoint.position, moveSpeed);
+            Player.position = Vector3.MoveTowards(Player.position, finishWaypoint, moveSpeed);
             yield return null;
         }
-        Player.position = FinishWaypoint.position;
+        Player.position = finishWaypoint;
         standingOnPoint = true;
     }
 }
